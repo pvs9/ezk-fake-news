@@ -29,6 +29,9 @@ front-install:
 front-build:
 	./vendor/bin/sail npm run prod
 
+front-hot:
+	./vendor/bin/sail npm run hot
+
 down: ## Stop containers
 	./vendor/bin/sail down
 
