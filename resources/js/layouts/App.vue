@@ -1,21 +1,33 @@
 <template>
-  <div class="min-h-full">
-    <header class="bg-white shadow">
-      <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="text-3xl font-bold text-gray-900">ezk-fake-news</h1>
-      </div>
-    </header>
+  <div class="layout min-h-screen">
+    <Header />
     <main>
-      <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <button class="btn">Hello daisyui</button>
-        <router-view />
-      </div>
+      <router-view />
     </main>
   </div>
 </template>
 
 <script>
+// Components
+import Header from "../components/Common/Header.vue";
+
 export default {
   name: "App",
+  components: {
+    Header,
+  },
 };
 </script>
+
+<style>
+/* .layout {
+  display: flex;
+  flex-direction: column;
+}
+
+.layout main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+} */
+</style>

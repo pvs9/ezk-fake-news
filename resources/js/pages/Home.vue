@@ -1,10 +1,14 @@
 <template>
-    <div class="mt-10 sm:mt-0">
-    </div>
+  <Searcher />
 </template>
 
 <script>
+import Searcher from "../components/Template/Searcher.vue";
+
 export default {
-    name: "Home"
-}
+  name: "Home",
+  components: {
+    Searcher,
+  },
+};
 </script>
