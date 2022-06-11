@@ -9,7 +9,7 @@
 
 <script>
 // Components
-import Header from "../components/Common/Header.vue";
+import Header from "../components/Common/Navbar.vue";
 
 export default {
   name: "App",
@@ -20,14 +20,4 @@ export default {
 </script>
 
 <style>
-/* .layout {
-  display: flex;
-  flex-direction: column;
-}
-
-.layout main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-} */
 </style>
