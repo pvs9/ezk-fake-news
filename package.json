@@ -24,6 +24,8 @@
         "vuex": "^4.0.2"
     },
     "dependencies": {
-        "daisyui": "^2.15.3"
+        "daisyui": "^2.15.3",
+        "pinia": "^2.0.14",
+        "vue-scrollto": "^2.20.0"
     }
 }
