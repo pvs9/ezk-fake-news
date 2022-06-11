@@ -4,7 +4,7 @@ const ParseValueToColor = (value) => {
         '#37CDBE': 60,
         '#3D4451': 40,
         '#FBBD23': 20,
-        '#470000': 0
+        '#F87272': 0
     };
     return Object.keys(colors).find(key => colors[key] <= value);
 }

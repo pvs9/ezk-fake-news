@@ -1,7 +1,7 @@
 <template>
-  <div class="CurrentArticle flex flex-col pt-10 bg-white">
+  <div class="CurrentArticle flex flex-col pt-10 pb-10 bg-grey">
     <div class="divider">
-      <h5 class="font-heading text-xl">{{ article.article.title }}. {{ article.article.author }}</h5>
+      <h5 class="font-heading text-2xl">{{ article.article.title }}. {{ article.article.author }}</h5>
     </div>
     <section class="relative pb-4 overflow-hidden">
       <div class="py-12">
