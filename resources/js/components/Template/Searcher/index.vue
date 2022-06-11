@@ -2,6 +2,12 @@
   <div class="SearcherTemplate min-h-screen">
     <MoscowCityHackLogo class="SearcherTemplate__MoscowCityHackLogo" />
     <div class="SearcherTemplate__content p-2">
+      <h1 class="text-5xl text-white text-center">
+        EZK
+      </h1>
+      <h1 class="text-2xl mt-1 mb-10 text-white text-center">
+        Сервис проверки поддельных новостей.
+      </h1>
       <InputNews />
     </div>
   </div>

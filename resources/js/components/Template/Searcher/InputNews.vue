@@ -1,16 +1,39 @@
 <template>
   <div class="InputNews flex flex-col w-100">
     <input
+      v-if="isLinkMode"
       type="text"
-      placeholder="Ссылка на статью"
+      placeholder="Введите ссылку на статью"
       class="input input-bordered w-full"
       v-model="search"
       :disabled="loading"
     />
+    <input
+      v-if="!isLinkMode"
+      type="text"
+      placeholder="Введите заголовок статьи"
+      class="input input-bordered w-full"
+      v-model="article.title"
+      :disabled="loading"
+    />
+    <textarea
+      v-if="!isLinkMode"
+      v-model="article.text"
+      class="textarea input-bordered w-full mt-3"
+      placeholder="Введите текст статьи"
+    ></textarea>
     <button
+      @click="chooseInputMode()"
+      v-if="!isBtnVisible"
+      class="btn btn-primary btn-outline mx-auto mt-5 btn-wide visible"
+    >
+      {{ isLinkMode ? 'Текстом' : 'Ссылкой' }}
+    </button>
+    <button
+      v-else
       @click="getArticleInfo"
-      :class="{'loading': loading, 'visible': isBtnVisible}"
-      class="btn btn-primary mx-auto mt-5 btn-wide"
+      :class="{'loading': loading}"
+      class="btn btn-accent mx-auto mt-5 btn-wide"
     >
       {{ loading ? '' : 'Определить' }}
     </button>
@@ -26,16 +49,23 @@ export default {
     return {
       search: "",
       loading: false,
+      isLinkMode: false,
+      article: {
+        title: "",
+        text: "",
+      },
     };
   },
   computed: {
     isBtnVisible() {
-      return this.search && this.search.length > 0;
+      if (this.isLinkMode) return this.search;
+
+      return this.article?.title && this.article?.text;
     },
   },
-  // created() {
-  //   this.getArticleInfo();
-  // },
+  created() {
+    this.getArticleInfo();
+  },
   methods: {
     getArticleInfo() {
       this.loading = true;
@@ -46,24 +76,26 @@ export default {
         console.log(response);
       });
     },
+    chooseInputMode() {
+      this.isLinkMode = !this.isLinkMode;
+    },
   },
 };
 </script>
 
 <style>
-.InputNews {
+/* .InputNews {
 }
 
 .InputNews .input {
-}
+} */
 
 .InputNews .btn {
-  opacity: 0;
-  pointer-events: none;
+  color: #fff;
 }
 
-.InputNews .btn.visible {
+/* .InputNews .btn.visible {
   opacity: 1;
   pointer-events: all;
-}
+} */
 </style>
