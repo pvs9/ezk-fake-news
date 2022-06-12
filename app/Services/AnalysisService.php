@@ -56,7 +56,7 @@ class AnalysisService
 
         fclose($handle);
 
-        dump((new CommandBuilder())
+        dd((new CommandBuilder())
             ->setCommand('whoami')
             ->buildCommand()
             ->runSynchronous()
