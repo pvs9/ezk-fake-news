@@ -56,13 +56,6 @@ class AnalysisService
 
         fclose($handle);
 
-        dd((new CommandBuilder())
-            ->setCommand('whoami')
-            ->buildCommand()
-            ->runSynchronous()
-            ->getStdOut()
-        );
-
         $command = (new CommandBuilder())
             ->setCommand('python3')
             ->addArguments([
