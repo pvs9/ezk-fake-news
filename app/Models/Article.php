@@ -34,6 +34,8 @@ use Illuminate\Support\Carbon;
  * @method static Builder|Article whereText($value)
  * @method static Builder|Article whereTitle($value)
  * @method static Builder|Article whereUpdatedAt($value)
+ *
+ * @property-read string|null $link
  */
 class Article extends Model
 {
@@ -64,4 +66,12 @@ class Article extends Model
         'date' => 'datetime',
         'is_reliable' => 'boolean'
     ];
+
+    public function getLinkAttribute(): ?string
+    {
+        return match ($this->source) {
+            'https://mos.ru' => sprintf('https://mos.ru/news/item/%s/', $this->external_id),
+            default => null,
+        };
+    }
 }
