@@ -1,20 +1,23 @@
 <template>
-    <div class="min-h-full">
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                <h1 class="text-3xl font-bold text-gray-900">ezk-fake-news</h1>
-            </div>
-        </header>
-        <main>
-            <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                <router-view />
-            </div>
-        </main>
-    </div>
+  <div class="layout min-h-screen">
+    <Header />
+    <main>
+      <router-view />
+    </main>
+  </div>
 </template>
 
 <script>
+// Components
+import Header from "../components/Common/Navbar.vue";
+
 export default {
-    name: "App",
-}
+  name: "App",
+  components: {
+    Header,
+  },
+};
 </script>
+
+<style>
+</style>
