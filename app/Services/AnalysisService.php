@@ -57,10 +57,9 @@ class AnalysisService
         fclose($handle);
 
         (new CommandBuilder())
-            ->setCommand(
-                sprintf('python3 %s', storage_path('ml/reliability/main.py'))
-            )
+            ->setCommand('python3')
             ->addArguments([
+                storage_path('ml/reliability/main.py'),
                 $inputFileName,
                 $outputFileName,
             ])
@@ -119,10 +118,9 @@ class AnalysisService
         fclose($handle);
 
         (new CommandBuilder())
-            ->setCommand(
-                sprintf('python3 %s', storage_path('ml/tonality/main.py'))
-            )
+            ->setCommand('python3')
             ->addArguments([
+                storage_path('ml/tonality/main.py'),
                 $inputFileName,
                 $outputFileName,
             ])
