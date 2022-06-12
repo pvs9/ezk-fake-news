@@ -24,11 +24,10 @@ class AnalysisService
         }
 
         if (!is_null($source)) {
-            dd($source);
             $sourceModel = Article::query()
                 ->where('source', $source->source)
                 ->where('date', $source->date)
-                ->where('title', $dto->title)
+                ->where('title', $source->title)
                 ->first();
 
             if (!is_null($sourceModel)) {
