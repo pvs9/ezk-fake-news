@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\ArticleAnalysisDTO;
 use JetBrains\PhpStorm\ArrayShape;
+use ptlis\ShellCommand\CommandBuilder;
 
 class AnalysisService
 {
@@ -55,14 +56,16 @@ class AnalysisService
 
         fclose($handle);
 
-        $command = sprintf(
-            'python3 %s %s %s 2>&1',
-            storage_path('ml/reliability/main.py'),
-            $inputFileName,
-            $outputFileName
-        );
-
-        shell_exec($command);
+        (new CommandBuilder())
+            ->setCommand(
+                sprintf('python3 %s', storage_path('ml/reliability/main.py'))
+            )
+            ->addArguments([
+                $inputFileName,
+                $outputFileName,
+            ])
+            ->buildCommand()
+            ->runSynchronous();
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
@@ -115,14 +118,16 @@ class AnalysisService
 
         fclose($handle);
 
-        $command = sprintf(
-            'python3 %s %s %s 2>&1',
-            storage_path('ml/tonality/main.py'),
-            $inputFileName,
-            $outputFileName
-        );
-
-        shell_exec($command);
+        (new CommandBuilder())
+            ->setCommand(
+                sprintf('python3 %s', storage_path('ml/tonality/main.py'))
+            )
+            ->addArguments([
+                $inputFileName,
+                $outputFileName,
+            ])
+            ->buildCommand()
+            ->runSynchronous();
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
