@@ -63,9 +63,6 @@ export default {
       return this.article?.title && this.article?.text;
     },
   },
-  created() {
-    this.getArticleInfo();
-  },
   methods: {
     getArticleInfo() {
       this.loading = true;
