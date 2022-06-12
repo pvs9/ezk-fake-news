@@ -66,7 +66,7 @@ class AnalysisService
             ->buildCommand()
             ->runSynchronous();
 
-        dump($command->getStdOut(), $command->getStdErr());
+        dd($command->getStdOut(), $command->getStdErr());
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
