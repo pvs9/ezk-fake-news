@@ -28,7 +28,7 @@ class AnalysisService
                 ->where('source', $source->source)
                 ->where('date', $source->date)
                 ->where('title', $dto->title)
-                ->get();
+                ->first();
 
             if (!is_null($sourceModel)) {
                 $source = [
