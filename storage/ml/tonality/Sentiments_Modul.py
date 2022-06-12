@@ -36,6 +36,7 @@ class predict_sentiments():
 
             fake_raw=pd.read_csv(data_file,  sep=",",  engine='python')
             nltk.download('stopwords', download_dir='/var/www/html/storage/ml/nltk_data')
+            nltk.data.path.append('/var/www/html/storage/ml/nltk_data')
             stop_words = set(stopwords.words('russian'))
             nltk_tokenizer = RegexpTokenizer(r'[а-яёa-z]+')
 
