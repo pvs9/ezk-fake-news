@@ -24,6 +24,7 @@ class AnalysisService
         }
 
         if (!is_null($source)) {
+            dd($source);
             $sourceModel = Article::query()
                 ->where('source', $source->source)
                 ->where('date', $source->date)
