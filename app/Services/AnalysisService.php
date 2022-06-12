@@ -142,7 +142,7 @@ class AnalysisService
             $reliability = $data[1][1] ?? null;
 
             if (!is_null($reliability)) {
-                return (float) $reliability;
+                return round((float) $reliability, 2);
             }
         }
 
