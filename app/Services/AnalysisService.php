@@ -27,7 +27,8 @@ class AnalysisService
             $sourceModel = Article::query()
                 ->where('source', $source->source)
                 ->where('date', $source->date)
-                ->where('title', $dto->title);
+                ->where('title', $dto->title)
+                ->get();
 
             if (!is_null($sourceModel)) {
                 $source = [
