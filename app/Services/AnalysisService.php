@@ -63,6 +63,7 @@ class AnalysisService
                 $inputFileName,
                 $outputFileName,
             ])
+            ->addEnvironmentVariable('NLTK_DATA', '/usr/local/nltk_data')
             ->buildCommand()
             ->runSynchronous();
 
@@ -126,6 +127,7 @@ class AnalysisService
                 $inputFileName,
                 $outputFileName,
             ])
+            ->addEnvironmentVariable('NLTK_DATA', '/usr/local/nltk_data')
             ->buildCommand()
             ->runSynchronous();
         dump($command->getStdOut(), $command->getStdErr());
