@@ -25,12 +25,7 @@ class ParseRGCommand extends Command
      */
     protected $description = 'Parse https://rg.ru science news';
 
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         $now = CarbonImmutable::now();
         $from = $now->startOfYear()->subYears(2);
