@@ -56,7 +56,7 @@ class AnalysisService
 
         fclose($handle);
 
-        $command = (new CommandBuilder())
+        (new CommandBuilder())
             ->setCommand('python3')
             ->addArguments([
                 storage_path('ml/reliability/main.py'),
@@ -66,8 +66,6 @@ class AnalysisService
             ->addEnvironmentVariable('NLTK_DATA', '/usr/local/nltk_data')
             ->buildCommand()
             ->runSynchronous();
-
-        dd($command->getStdOut(), $command->getStdErr());
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
@@ -120,7 +118,7 @@ class AnalysisService
 
         fclose($handle);
 
-        $command = (new CommandBuilder())
+        (new CommandBuilder())
             ->setCommand('python3')
             ->addArguments([
                 storage_path('ml/tonality/main.py'),
@@ -130,7 +128,6 @@ class AnalysisService
             ->addEnvironmentVariable('NLTK_DATA', '/usr/local/nltk_data')
             ->buildCommand()
             ->runSynchronous();
-        dump($command->getStdOut(), $command->getStdErr());
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
