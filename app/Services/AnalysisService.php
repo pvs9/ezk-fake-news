@@ -56,7 +56,6 @@ class AnalysisService
             'authenticity' => $authenticity,
             'tonality' => $tonality,
             'article' => $dto->only('title', 'text')->toArray(),
-            'pdf_report' => 'https://ya.ru/',
             'original_source' => $source,
             'tonality_difference' => $tonalityDifference,
         ];
