@@ -49,8 +49,8 @@ class AnalysisService
 
                 if (!is_null($sourceTonality)) {
                     $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
-                    $overall += (100 - abs($tonality - $sourceTonality)) * 3;
-                    $overallParts += 3;
+                    $overall += (100 - abs($tonality - $sourceTonality)) * 1.5;
+                    $overallParts += 1.5;
                 }
             } else {
                 $source = null;
