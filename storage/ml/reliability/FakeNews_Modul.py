@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[80]:
+# In[ ]:
 
 
+#импорт всех необходимых библиотек, чтобы в последствии при вызове данного модуля не прищлось ничего подгружать
 from tensorflow import keras
 import numpy as np
 import tensorflow as tf
-from tensorflow import keras
 import pandas as pd
 import nltk
 from nltk.corpus import stopwords
@@ -24,25 +24,27 @@ import glob
 class predict_fake():
 
         def __init__(self, path_file, cv_file):
-            # read the 'model' and 'cv' files which were saved
+            # считываем модель предтренированной нейросети
+            #и векторайзера для текстов, которые ранее были созданы
 
             with open(cv_file, 'rb') as cv_file:
                 self.nn = keras.models.load_model(path_file)
                 self.cv = joblib.load(cv_file)
                 self.data = None
 
-        # take a data file (*.csv) and preprocess it
+        # загружаем дата сет (*.csv) и производим препроцессинг данных
         def load_and_clean_data(self, data_file):
 
-            # import the data
+            # загрузка данных
 
             fake_raw=pd.read_csv(data_file,  sep=",",  engine='python')
-            nltk.download('stopwords', download_dir='/var/www/html/storage/ml/nltk_data')
-            nltk.data.path.append('/var/www/html/storage/ml/nltk_data')
+            #загрузка модуля стоп слов для токенизации и последующего выявления лемм
+            nltk.download('stopwords')
             stop_words = set(stopwords.words('russian'))
             nltk_tokenizer = RegexpTokenizer(r'[а-яёa-z]+')
-
             morph = pymorphy2.MorphAnalyzer()
+
+            #функция выделения лемм слов
 
             def text_preprocessing(text):
                     words = nltk_tokenizer.tokenize(text.lower())
@@ -50,7 +52,7 @@ class predict_fake():
 
                     return lem_text
 
-
+            #токенизирование текстовых данных
             ps = PorterStemmer()
             temp = []
             for i in range(0, len(fake_raw)):
@@ -63,7 +65,7 @@ class predict_fake():
             self.data = self.cv.transform(temp)
 
 
-
+        #загрузка данных через векторайзер в предикт модуль и перевод данных в 100-бальную систему оценки
         def predicted_outputs(self):
             if (self.data is not None):
                 tempo=self.nn.predict(self.data)
