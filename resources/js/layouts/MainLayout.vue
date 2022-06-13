@@ -1,6 +1,5 @@
 <template>
   <div class="MainLayout">
-    <Alert />
     <slot name="content" />
   </div>
 </template>
