@@ -17840,8 +17840,8 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    ParseValueToColor: function ParseValueToColor(value) {
-      return (0,_helpers_Formatter__WEBPACK_IMPORTED_MODULE_0__.ParseValueToColor)(value);
+    getColorByValue: function getColorByValue(value) {
+      return (0,_helpers_Formatter__WEBPACK_IMPORTED_MODULE_0__.getColorByValue)(value);
     }
   }
 });
@@ -17877,8 +17877,8 @@ __webpack_require__.r(__webpack_exports__);
     OriginalArticle: _OriginalArticle_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
-    ParseValueToColor: function ParseValueToColor(value) {
-      return (0,_helpers_Formatter__WEBPACK_IMPORTED_MODULE_0__.ParseValueToColor)(value);
+    getColorByValue: function getColorByValue(value) {
+      return (0,_helpers_Formatter__WEBPACK_IMPORTED_MODULE_0__.getColorByValue)(value);
     }
   },
   computed: {
@@ -17927,14 +17927,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getArticleInfo: function getArticleInfo() {
-      var _this = this;
-
       this.loading = true;
-      var store = (0,_store_Article__WEBPACK_IMPORTED_MODULE_0__.useArticleStore)();
-      store.getArticle(this.search).then(function (response) {
-        _this.loading = false;
-        console.log(response);
-      });
+      var store = (0,_store_Article__WEBPACK_IMPORTED_MODULE_0__.useArticleStore)(); // store.getArticle(this.search).then((response) => {
+      //   this.loading = false;
+      //   console.log(response);
+      // });
     },
     chooseInputMode: function chooseInputMode() {
       this.isLinkMode = !this.isLinkMode;
@@ -18327,7 +18324,7 @@ var _hoisted_4 = {
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
-    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($options.isValueNumber ? "color: ".concat($options.ParseValueToColor($props.value)) : ''),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($options.isValueNumber ? "color: ".concat($options.getColorByValue($props.value)) : ''),
     "class": "font-heading text-4xl mb-2"
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.isValueNumber ? "".concat($props.value, "%") : $props.value), 5
   /* TEXT, STYLE */
@@ -18390,7 +18387,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_OriginalArticle = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("OriginalArticle");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_6, [_hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("color: ".concat($options.ParseValueToColor($options.article.authenticity)))
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)("color: ".concat($options.getColorByValue($options.article.authenticity)))
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.article.authenticity) + "% ", 5
   /* TEXT, STYLE */
   )]), _hoisted_8])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_CurrentArticle), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_OriginalArticle)]);
@@ -18448,17 +18445,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     placeholder: "Введите текст статьи"
   }, null, 512
   /* NEED_PATCH */
-  )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.article.text]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$options.isBtnVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+  )), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.article.text]]) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button\n      @click=\"chooseInputMode()\"\n      v-if=\"!isBtnVisible\"\n      class=\"btn btn-primary btn-outline mx-auto mt-5 btn-wide visible\"\n    >\n      {{ isLinkMode ? 'Текстом' : 'Ссылкой' }}\n    </button> "), $options.isBtnVisible ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
     key: 3,
-    onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.chooseInputMode();
-    }),
-    "class": "btn btn-primary btn-outline mx-auto mt-5 btn-wide visible"
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.isLinkMode ? 'Текстом' : 'Ссылкой'), 1
-  /* TEXT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
-    key: 4,
-    onClick: _cache[4] || (_cache[4] = function () {
+    onClick: _cache[3] || (_cache[3] = function () {
       return $options.getArticleInfo && $options.getArticleInfo.apply($options, arguments);
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
@@ -18466,7 +18455,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, "btn btn-accent mx-auto mt-5 btn-wide"])
   }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.loading ? '' : 'Определить'), 3
   /* TEXT, CLASS */
-  ))]);
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]);
 }
 
 /***/ }),
@@ -18676,9 +18665,9 @@ app.mount('#app');
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "ParseValueToColor": () => (/* binding */ ParseValueToColor)
+/* harmony export */   "getColorByValue": () => (/* binding */ getColorByValue)
 /* harmony export */ });
-var ParseValueToColor = function ParseValueToColor(value) {
+var getColorByValue = function getColorByValue(value) {
   var colors = {
     '#570DF8': 80,
     '#37CDBE': 60,

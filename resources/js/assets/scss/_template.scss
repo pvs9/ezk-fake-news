@@ -1,0 +1,26 @@
+@import "./variables";
+
+html,
+body {
+    font-size: 10px;
+    font-family: $font-default-family;
+    line-height: 1;
+
+    @media screen and (max-width: 960px) {
+        & {
+            font-size: 9px;
+        }
+    }
+
+    @media screen and (max-width: 640px) {
+        & {
+            font-size: 8px;
+        }
+    }
+}
+
+
+.container {
+    margin: 0 auto;
+    padding: 15px;
+}

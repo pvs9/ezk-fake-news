@@ -1,4 +1,4 @@
-const ParseValueToColor = (value) => {
+const getColorByValue = (value) => {
     const colors = {
         '#570DF8': 80,
         '#37CDBE': 60,
@@ -9,4 +9,4 @@ const ParseValueToColor = (value) => {
     return Object.keys(colors).find(key => colors[key] <= value);
 }
 
-export { ParseValueToColor };
+export { getColorByValue };
