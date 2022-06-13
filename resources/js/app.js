@@ -1,15 +1,17 @@
-import App from "./layouts/App";
+// Initialize Vue App
+import App from "./App.vue";
+const app = createApp(App)
+
+// Import dependencies
 import { createApp } from 'vue'
-import router from "./router";
-// import api from "./api";
+import api from "./api";
 import { createPinia } from 'pinia'
 const VueScrollTo = require('vue-scrollto');
 
-const app = createApp(App)
-
-// app.config.globalProperties.$axios = api;
-app.config.globalProperties.$to = (url) => window.open(url);
-app.use(router)
+// Init plugins
+app.config.globalProperties.$axios = api;
 app.use(createPinia())
 app.use(VueScrollTo)
 app.mount('#app')
+
+export default app;

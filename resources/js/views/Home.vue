@@ -1,15 +1,18 @@
 <template>
-  <Searcher id="Searcher" />
-  <ArticleDetails
-    id="ArticleDetails"
-    v-if="isAnimate || article"
-  />
+  <div class="HomePage">
+    <SearchBlock id="SearchBlock" />
+    <ResultsBlock
+      id="ResultsBlock"
+      v-if="article"
+    />
+  </div>
 </template>
 
 <script>
-// Components
-import Searcher from "../components/Template/Searcher/index.vue";
-import ArticleDetails from "../components/Template/ArticleDetails/index.vue";
+// Page blocks
+import SearchBlock from "../components/Blocks/SearchBlock/index.vue";
+import ResultsBlock from "../components/Blocks/ResultsBlock/index.vue";
+
 // Store
 import { useArticleStore } from "../store/Article";
 
@@ -18,8 +21,8 @@ const animationDuration = 700;
 export default {
   name: "Home",
   components: {
-    Searcher,
-    ArticleDetails,
+    SearchBlock,
+    ResultsBlock,
   },
   data() {
     return {
@@ -37,16 +40,15 @@ export default {
       handler: function (e) {
         if (!e) {
           this.isAnimate = true;
-          this.$scrollTo("#Searcher", animationDuration);
+          this.$scrollTo("#SearchBlock", animationDuration);
           setTimeout(() => {
             this.isAnimate = false;
           }, animationDuration);
-
           return;
         }
 
         this.$nextTick(() => {
-          return this.$scrollTo("#ArticleDetails", animationDuration);
+          return this.$scrollTo("#ResultsBlock", animationDuration);
         });
       },
       deep: true,
