@@ -60,7 +60,7 @@ class predict_sentiments():
                 review=" ".join(review)
                 temp.append(review)
 
-            self.preprocessed_data = fake_raw.copy()
+            self.preprocessed_data = data_raw.copy()
             self.data = self.cv.transform(temp)
 
 
