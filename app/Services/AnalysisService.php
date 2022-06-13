@@ -30,16 +30,18 @@ class AnalysisService
                 ->first();
 
             if (!is_null($sourceModel)) {
-                $source = [
-                    'title' => $sourceModel->title,
-                    'link' => $sourceModel->link,
-                    'similarity' => $source->similarity,
-                ];
-
                 $sourceTonality = $this->predictTonality(
                     sprintf('%s-source', $dto->uuid),
                     $sourceModel->text,
                 );
+
+                $source = [
+                    'title' => $sourceModel->title,
+                    'link' => $sourceModel->link,
+                    'date' => $sourceModel->date->format('d.m.Y H:i'),
+                    'similarity' => $source->similarity,
+                    'tonality' => $sourceTonality,
+                ];
 
                 if (!is_null($sourceTonality)) {
                     $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
