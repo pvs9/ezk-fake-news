@@ -16,11 +16,15 @@ final class AnalysisService
     #[ArrayShape(['overall' => "float", 'authenticity' => "int|null", 'tonality' => "int|null", 'article' => "array", 'original_source' => "\App\DTO\ArticleSourceDTO|array|null", 'tonality_difference' => "null|string"])]
     public function analyze(ArticleAnalysisDTO $dto): array
     {
+        $authenticityCoefficient = (int) config('analyze.coefficients.authenticity');
+        $similarityCoefficient = (int) config('analyze.coefficients.similarity');
+        $tonalityCoefficient = (int) config('analyze.coefficients.tonality');
+
         $authenticity = $this->predictReliability($dto->uuid, $dto->text);
         $tonality = $this->predictTonality($dto->uuid, $dto->text);
         $tonalityDifference = null;
-        $overall = $authenticity * 4;
-        $overallParts = 4;
+        $overall = $authenticity * $authenticityCoefficient;
+        $overallParts = $authenticityCoefficient;
 
         try {
             $source = $this->predictSimilarity($dto->uuid, $dto->text);
@@ -34,8 +38,8 @@ final class AnalysisService
                 ->where('date', $source->date)
                 ->where('title', $source->title)
                 ->first();
-            $overall += $source->similarity * 3;
-            $overallParts += 3;
+            $overall += $source->similarity * $similarityCoefficient;
+            $overallParts += $similarityCoefficient;
 
             if (!is_null($sourceModel)) {
                 $sourceTonality = $this->predictTonality(
@@ -53,8 +57,8 @@ final class AnalysisService
 
                 if (!is_null($sourceTonality)) {
                     $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
-                    $overall += (100 - abs($tonality - $sourceTonality)) * 1.5;
-                    $overallParts += 1.5;
+                    $overall += (100 - abs($tonality - $sourceTonality)) * $tonalityCoefficient;
+                    $overallParts += $tonalityCoefficient;
                 }
             } else {
                 $source = null;
