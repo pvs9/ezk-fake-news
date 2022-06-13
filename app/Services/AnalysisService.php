@@ -15,8 +15,8 @@ class AnalysisService
         $authenticity = $this->predictReliability($dto->uuid, $dto->text);
         $tonality = $this->predictTonality($dto->uuid, $dto->text);
         $tonalityDifference = null;
-        $overall = $authenticity;
-        $overallParts = 1;
+        $overall = $authenticity * 4;
+        $overallParts = 4;
 
         try {
             $source = $this->predictSimilarity($dto->uuid, $dto->text);
@@ -30,8 +30,8 @@ class AnalysisService
                 ->where('date', $source->date)
                 ->where('title', $source->title)
                 ->first();
-            $overall += $source->similarity;
-            $overallParts++;
+            $overall += $source->similarity * 3;
+            $overallParts += 3;
 
             if (!is_null($sourceModel)) {
                 $sourceTonality = $this->predictTonality(
@@ -49,8 +49,8 @@ class AnalysisService
 
                 if (!is_null($sourceTonality)) {
                     $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
-                    $overall += 100 - abs($tonality - $sourceTonality);
-                    $overallParts++;
+                    $overall += (100 - abs($tonality - $sourceTonality)) * 3;
+                    $overallParts += 3;
                 }
             } else {
                 $source = null;
