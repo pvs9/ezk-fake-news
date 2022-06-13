@@ -5,17 +5,16 @@ namespace App\Services;
 use App\DTO\ArticleAnalysisDTO;
 use App\DTO\ArticleSourceDTO;
 use App\Models\Article;
-use JetBrains\PhpStorm\ArrayShape;
 use ptlis\ShellCommand\CommandBuilder;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
 class AnalysisService
 {
-    #[ArrayShape(['overall' => "int|null", 'authenticity' => "int|null", 'tonality' => "int|null", 'article' => "array", 'pdf_report' => "string", 'original_source' => "\App\DTO\ArticleSourceDTO|array|null"])]
     public function analyze(ArticleAnalysisDTO $dto): array
     {
         $authenticity = $this->predictReliability($dto->uuid, $dto->text);
         $tonality = $this->predictTonality($dto->uuid, $dto->text);
+        $tonalityDifference = null;
 
         try {
             $source = $this->predictSimilarity($dto->uuid, $dto->text);
@@ -36,6 +35,15 @@ class AnalysisService
                     'link' => $sourceModel->link,
                     'similarity' => $source->similarity,
                 ];
+
+                $sourceTonality = $this->predictTonality(
+                    sprintf('%s-source', $dto->uuid),
+                    $sourceModel->text,
+                );
+
+                if (!is_null($sourceTonality)) {
+                    $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
+                }
             } else {
                 $source = null;
             }
@@ -48,7 +56,21 @@ class AnalysisService
             'article' => $dto->only('title', 'text')->toArray(),
             'pdf_report' => 'https://ya.ru/',
             'original_source' => $source,
+            'tonality_difference' => $tonalityDifference,
         ];
+    }
+
+    protected function compareTonalities(int $currentTonality, int $sourceTonality): string
+    {
+        $difference = abs($currentTonality - $sourceTonality);
+
+        return match (true) {
+            $difference <= 15 => trans('article.analyze.tonality_difference.allowed'),
+            $difference <= 30 => trans('article.analyze.tonality_difference.minor'),
+            $difference <= 60 => trans('article.analyze.tonality_difference.moderate'),
+            $difference <= 80 => trans('article.analyze.tonality_difference.high'),
+            $difference <= 100 => trans('article.analyze.tonality_difference.critical'),
+        };
     }
 
     protected function predictReliability(string $uuid, string $text): ?int

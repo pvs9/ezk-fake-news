@@ -20,7 +20,11 @@ final class ArticleAnalysisDTO extends DataTransferObject
     {
         return new self(
             title: $request->input('title'),
-            text: $request->input('text'),
+            text: preg_replace('!\s+!', ' ',
+                html_entity_decode(
+                    str_replace('&nbsp;',' ', strip_tags($request->input('text')))
+                )
+            ),
             uuid: Str::uuid()
         );
     }
