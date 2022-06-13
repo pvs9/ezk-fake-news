@@ -24,7 +24,7 @@ final class AnalysisService
         $tonality = $this->predictTonality($dto->uuid, $dto->text);
         $tonalityDifference = null;
         $overall = $authenticity * $authenticityCoefficient;
-        $overallParts = $authenticityCoefficient;
+        $overallParts = $authenticityCoefficient + $similarityCoefficient + $tonalityCoefficient;
 
         try {
             $source = $this->predictSimilarity($dto->uuid, $dto->text);
@@ -39,7 +39,6 @@ final class AnalysisService
                 ->where('title', $source->title)
                 ->first();
             $overall += $source->similarity * $similarityCoefficient;
-            $overallParts += $similarityCoefficient;
 
             if (!is_null($sourceModel)) {
                 $sourceTonality = $this->predictTonality(
@@ -58,7 +57,6 @@ final class AnalysisService
                 if (!is_null($sourceTonality)) {
                     $tonalityDifference = $this->compareTonalities($tonality, $sourceTonality);
                     $overall += (100 - abs($tonality - $sourceTonality)) * $tonalityCoefficient;
-                    $overallParts += $tonalityCoefficient;
                 }
             } else {
                 $source = null;
