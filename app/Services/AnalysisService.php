@@ -202,7 +202,7 @@ class AnalysisService
                     title: $source[0],
                     date: $source[1],
                     source: 'https://mos.ru',
-                    similarity: (int) round(((float) $source) * 100)
+                    similarity: (int) round(((float) $source[2]) * 100)
                 );
             }
         }
