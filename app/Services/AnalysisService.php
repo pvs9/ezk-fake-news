@@ -236,7 +236,7 @@ class AnalysisService
 
         fclose($handle);
 
-        (new CommandBuilder())
+        $command = (new CommandBuilder())
             ->setCommand('python3')
             ->addArguments([
                 storage_path('ml/tonality/main.py'),
@@ -245,6 +245,7 @@ class AnalysisService
             ])
             ->buildCommand()
             ->runSynchronous();
+        dd($command->getStdOut(), $command->getStdErr());
 
         $data = [];
         $file = fopen($outputFileName, 'rb');
