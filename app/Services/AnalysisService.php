@@ -5,11 +5,15 @@ namespace App\Services;
 use App\DTO\ArticleAnalysisDTO;
 use App\DTO\ArticleSourceDTO;
 use App\Models\Article;
+use JetBrains\PhpStorm\ArrayShape;
 use ptlis\ShellCommand\CommandBuilder;
 use Spatie\DataTransferObject\Exceptions\UnknownProperties;
 
-class AnalysisService
+final class AnalysisService
 {
+    public const SIMILARITY_LOWER_BOUNDARY = 15;
+
+    #[ArrayShape(['overall' => "float", 'authenticity' => "int|null", 'tonality' => "int|null", 'article' => "array", 'original_source' => "\App\DTO\ArticleSourceDTO|array|null", 'tonality_difference' => "null|string"])]
     public function analyze(ArticleAnalysisDTO $dto): array
     {
         $authenticity = $this->predictReliability($dto->uuid, $dto->text);
@@ -198,6 +202,12 @@ class AnalysisService
             $source = $data[1] ?? null;
 
             if (!is_null($source)) {
+                $similarity = (int) round(((float) $source[2]) * 100);
+
+                if ($similarity < self::SIMILARITY_LOWER_BOUNDARY) {
+                    return null;
+                }
+
                 return new ArticleSourceDTO(
                     title: $source[0],
                     date: $source[1],
