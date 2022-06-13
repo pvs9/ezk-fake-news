@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = process.env.VUE_APP_BASE_URL || 'http://localhost/api';
+const baseURL = process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost/api';
 
 
 const api = axios.create({

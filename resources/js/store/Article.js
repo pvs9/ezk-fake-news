@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import api from "../api";
-import { article } from "../helpers/Mockup";
+// import { article } from "../helpers/Mockup";
 
 export const useArticleStore = defineStore({
   id: 'article',
@@ -24,11 +24,3 @@ export const useArticleStore = defineStore({
     },
   }
 })
-
-setTimeout(() => {
-  if(process.env.NODE_ENV === 'development') {
-    useArticleStore().$patch({
-      article
-    })
-  }
-}, 0);
